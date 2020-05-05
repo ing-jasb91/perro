@@ -15,7 +15,6 @@ Ejercicio práctico #3
     • Si necesitas ayuda, aquí tienes una pista: https://play.golang.org/p/a-tdD-7lTId
 código: https://gitlab.com/eduar/go-programming
 */
-
 package main
 
 import (
@@ -24,21 +23,33 @@ import (
 	"sync"
 )
 
+var wg sync.WaitGroup
+
 func main() {
-	var wg sync.WaitGroup
-	var incremento int
-	gs := 100
+
+	fmt.Println(
+		"OS:\t", runtime.GOOS,
+		"\nARCH:\t", runtime.GOARCH,
+		"\nCPU's\t", runtime.NumCPU(),
+		"\nGoroutines:\t", runtime.NumGoroutine(),
+	)
+
+	incremento := 0
+	const gs int = 100
 	wg.Add(gs)
 	for i := 0; i < gs; i++ {
 		go func() {
+
 			v := incremento
 			runtime.Gosched()
 			v++
 			incremento = v
-			fmt.Println(incremento)
 			wg.Done()
 		}()
+		fmt.Println("Goroutines:\t", runtime.NumGoroutine())
 	}
+
 	wg.Wait()
-	fmt.Println("El valor final del incremento es:", incremento)
+	fmt.Println("Incremento:\t", incremento)
+
 }

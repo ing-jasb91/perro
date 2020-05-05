@@ -12,44 +12,32 @@ import (
 )
 
 func main() {
-	fmt.Println("OS:\t\t", runtime.GOOS)
-	fmt.Println("ARCH:\t\t", runtime.GOARCH)
-	fmt.Println("CPU:\t\t", runtime.NumCPU())
-	fmt.Println("Go Routine:\t", runtime.NumGoroutine())
-
+	fmt.Println(
+		"OS:\t", runtime.GOOS,
+		"\nARCH:\t", runtime.GOARCH,
+		"\nVersion\t", runtime.Version(),
+		"\nCPU's\t", runtime.NumCPU(),
+		"\nGoroutines:\t", runtime.NumGoroutine(),
+	)
 	var wg sync.WaitGroup
-	wg.Add(3)
+	wg.Add(2)
 
 	go func() {
-		for i := 1; i <= 10; i++ {
-			fmt.Println("Iteration N°:", i)
+		for i := 0; i < 10; i++ {
+			fmt.Println("Algo1", i)
 		}
+		fmt.Println("\nGoroutines:\t", runtime.NumGoroutine())
 		wg.Done()
 	}()
-	fmt.Println("Go Routine 1:", runtime.NumGoroutine())
 
 	go func() {
-		fmt.Println("Primera Goroutine")
-		for i := 1; i <= 10; i++ {
-			if i%2 == 0 {
-				fmt.Println("Even N°:", i)
-			}
+		for i := 0; i < 10; i++ {
+			fmt.Println("Algo2", i)
 		}
+		fmt.Println("\nGoroutines:\t", runtime.NumGoroutine())
 		wg.Done()
 	}()
-	fmt.Println("Go Routine 2:", runtime.NumGoroutine())
-
-	go func() {
-		fmt.Println("Tercera Goroutine")
-		for i := 1; i <= 10; i++ {
-			if i%2 != 0 {
-				fmt.Println("Odd N°:", i)
-			}
-		}
-		wg.Done()
-	}()
-	fmt.Println("Go Routine 3:", runtime.NumGoroutine())
-
 	wg.Wait()
-	fmt.Println("Go Routine Final:", runtime.NumGoroutine())
+	fmt.Println("\nGoroutines:\t", runtime.NumGoroutine())
+	fmt.Println()
 }

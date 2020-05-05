@@ -2,7 +2,7 @@
 Ejercicio práctico #4
 Arregla la race condition que creaste en el ejercicio anterior usando un mutex
 ●	Tiene sentido eliminar runtime.Gosched()
-código: https://gitlab.com/eduar/go-programming 
+código: https://gitlab.com/eduar/go-programming
 */
 package main
 
@@ -12,32 +12,36 @@ import (
 	"sync"
 )
 
-func main() {
-	var wg sync.WaitGroup
-	var incremento int
-	gs := 60
-	fmt.Println("N° CPU:", runtime.NumCPU())
-	fmt.Println("N° Goroutine:", runtime.NumGoroutine())
-	
-	
-	wg.Add(gs)
-	fmt.Println("N° Goroutine 1:", runtime.NumGoroutine())
-	var mx sync.Mutex
+var wg sync.WaitGroup
+var mux sync.Mutex
 
+func main() {
+
+	fmt.Println(
+		"OS:\t", runtime.GOOS,
+		"\nARCH:\t", runtime.GOARCH,
+		"\nCPU's\t", runtime.NumCPU(),
+		"\nGoroutines:\t", runtime.NumGoroutine(),
+	)
+
+	incremento := 0
+	const gs int = 100
+	wg.Add(gs)
 	for i := 0; i < gs; i++ {
 		go func() {
-			mx.Lock()
+			mux.Lock()
+
 			v := incremento
 			//runtime.Gosched()
 			v++
 			incremento = v
-			fmt.Println(incremento)
-			mx.Unlock()
+			mux.Unlock()
 			wg.Done()
 		}()
+		fmt.Println("Goroutines:\t", runtime.NumGoroutine())
 	}
-	fmt.Println("N° Goroutine 2:", runtime.NumGoroutine())
+
 	wg.Wait()
-	fmt.Println("N° Goroutine:", runtime.NumGoroutine())
-	fmt.Println("El valor final del incremento es:", incremento)
+	fmt.Println("Incremento:\t", incremento)
+
 }

@@ -26,34 +26,26 @@ package main
 import "fmt"
 
 type persona struct {
-	Nombre   string
-	Apellido string
-	Edad     int
+	Name string
 }
 
-func (h *persona) hablar() {
-	fmt.Printf("Esta persona %s %s habla\n", h.Nombre, h.Apellido)
+func (p *persona) toTalk() string {
+	return fmt.Sprintln("Hello,", p.Name)
 }
 
-type humano interface {
-	hablar()
+type human interface {
+	toTalk() string
 }
 
-func diAlgo(h humano) {
-	h.hablar()
+func saySomething(h human) {
+	fmt.Println(h.toTalk())
 }
 
 func main() {
-	persona1 := persona{
-		Nombre:   "Jhon",
-		Apellido: "Serrano",
-		Edad:     28,
+	p1 := persona{
+		Name: "Wilda",
 	}
-	// La interfaz humano solo permite valores de tipo *persona
-	// diAlgo(persona1)
-	// Este valor es permitido porque es una dirección de memoria, apunta a un valor.
-	diAlgo(&persona1)
-	// Aunque el método hablar recibe parámetros de tipo *persona, puede recibir valores normales
-	// Mientras sean directamente desde una variable y no una interface.
-	persona1.hablar()
+	saySomething(&p1)
+	//saySomething(p1)
+	fmt.Println(p1.toTalk())
 }
