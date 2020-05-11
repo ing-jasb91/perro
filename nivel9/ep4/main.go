@@ -35,6 +35,7 @@ func main() {
 			//runtime.Gosched()
 			v++
 			incremento = v
+			fmt.Println(incremento)
 			mux.Unlock()
 			wg.Done()
 		}()
