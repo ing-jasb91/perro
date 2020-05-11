@@ -44,12 +44,13 @@ func main() {
 			runtime.Gosched()
 			v++
 			incremento = v
+			fmt.Println(incremento)
 			wg.Done()
 		}()
-		fmt.Println("Goroutines:\t", runtime.NumGoroutine())
+		//fmt.Println("Goroutines:\t", runtime.NumGoroutine())
 	}
 
 	wg.Wait()
-	fmt.Println("Incremento:\t", incremento)
+	fmt.Println("Valor final de Incremento:\t", incremento)
 
 }
