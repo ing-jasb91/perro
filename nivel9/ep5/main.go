@@ -29,11 +29,10 @@ func main() {
 	for i := 0; i < gs; i++ {
 		go func() {
 			atomic.AddInt64(&incremento, 1)
-			runtime.Gosched()
 			fmt.Println("Contador:", atomic.LoadInt64(&incremento))
 			wg.Done()
 		}()
-		fmt.Println("Gorout:\t", runtime.NumGoroutine())
+		//fmt.Println("Gorout:\t", runtime.NumGoroutine())
 	}
 
 	wg.Wait()
