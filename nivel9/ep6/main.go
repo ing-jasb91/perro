@@ -20,7 +20,7 @@ func main() {
 		"\nOperating System:\t", runtime.GOOS,
 		"\nCPU Arch:\t\t", runtime.GOARCH,
 		"\nGo Version:\t\t", runtime.Version(),
-		"\nGo Path:\t\t", runtime.GOROOT(),
+		"\nGo Root:\t\t", runtime.GOROOT(),
 		"\n************************************\n\n",
 	)
 
