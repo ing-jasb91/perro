@@ -1,6 +1,6 @@
 /*
 Ejercicio Práctico #1
-    • Haz que este código funcione:
+    • Haz que este código (https://play.golang.org/p/j-EA6003P0) funcione:
         ◦ Usando una función literal, también conocida como, función anónima autoejecutable
             ▪ Solución: https://play.golang.org/p/SHr3lpX4so
         ◦ Un canal con búfer
