@@ -14,10 +14,10 @@ import "fmt"
 
 func main() {
 	ch := make(chan int)
-	for j := 0; j < 10; j++ {
+	for i := 0; i < 10; i++ {
 		go func() {
-			for i := 0; i < 10; i++ {
-				ch <- i
+			for j := 0; j < 10; j++ {
+				ch <- j
 			}
 		}()
 	}
